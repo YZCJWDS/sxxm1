@@ -1,0 +1,17 @@
+data:
+  test: ./data/test
+  train: ./data/train
+  val: ./data/val
+model:
+  name: yolov8n
+  names:
+  - person
+  - bicycle
+  - car
+  nc: 80
+train:
+  batch: 16
+  epochs: 100
+  imgsz: 640
+  lr0: 0.01
+  weight_decay: 0.0005

@@ -1,0 +1,10 @@
+names:
+- objects
+- glioma_tumor
+- meningioma_tumor
+- pituitary_tumor
+nc: 4
+path: E:\py\sxxm1\BTD\yoloserver\data
+test: test/images
+train: train/images
+val: val/images

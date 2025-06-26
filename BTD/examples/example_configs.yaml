@@ -1,0 +1,351 @@
+# BTD项目配置示例文件
+# 包含各种常用配置的示例
+
+# =============================================================================
+# 模型配置示例
+# =============================================================================
+
+model_config_examples:
+  
+  # 基础检测模型配置
+  basic_detection:
+    model:
+      name: yolov8n
+      type: detection
+      input_size: [640, 640]
+      num_classes: 8
+      class_names: ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck']
+      pretrained: true
+      weights_path: null
+    
+    training:
+      epochs: 100
+      batch_size: 16
+      learning_rate: 0.01
+      momentum: 0.937
+      weight_decay: 0.0005
+      warmup_epochs: 3
+      optimizer: SGD
+      scheduler: cosine
+      early_stopping:
+        enabled: true
+        patience: 50
+        min_delta: 0.001
+    
+    augmentation:
+      hsv_h: 0.015
+      hsv_s: 0.7
+      hsv_v: 0.4
+      degrees: 0.0
+      translate: 0.1
+      scale: 0.5
+      shear: 0.0
+      perspective: 0.0
+      flipud: 0.0
+      fliplr: 0.5
+      mosaic: 1.0
+      mixup: 0.0
+      copy_paste: 0.0
+    
+    validation:
+      val_split: 0.2
+      save_period: 10
+      save_best: true
+      metrics: ['mAP50', 'mAP50-95', 'precision', 'recall']
+
+  # 高精度模型配置
+  high_accuracy:
+    model:
+      name: yolov8l
+      type: detection
+      input_size: [1280, 1280]
+      num_classes: 80
+      pretrained: true
+    
+    training:
+      epochs: 300
+      batch_size: 8
+      learning_rate: 0.005
+      momentum: 0.937
+      weight_decay: 0.0005
+      warmup_epochs: 5
+      optimizer: AdamW
+      scheduler: cosine
+      early_stopping:
+        enabled: true
+        patience: 100
+        min_delta: 0.0001
+    
+    augmentation:
+      hsv_h: 0.02
+      hsv_s: 0.8
+      hsv_v: 0.5
+      degrees: 5.0
+      translate: 0.2
+      scale: 0.8
+      shear: 2.0
+      perspective: 0.0001
+      flipud: 0.0
+      fliplr: 0.5
+      mosaic: 1.0
+      mixup: 0.1
+      copy_paste: 0.1
+
+  # 快速训练配置
+  fast_training:
+    model:
+      name: yolov8n
+      type: detection
+      input_size: [416, 416]
+      num_classes: 1
+      pretrained: true
+    
+    training:
+      epochs: 50
+      batch_size: 32
+      learning_rate: 0.02
+      momentum: 0.9
+      weight_decay: 0.001
+      warmup_epochs: 2
+      optimizer: SGD
+      scheduler: linear
+      early_stopping:
+        enabled: false
+    
+    augmentation:
+      hsv_h: 0.01
+      hsv_s: 0.5
+      hsv_v: 0.3
+      degrees: 0.0
+      translate: 0.05
+      scale: 0.3
+      shear: 0.0
+      perspective: 0.0
+      flipud: 0.0
+      fliplr: 0.5
+      mosaic: 0.8
+      mixup: 0.0
+      copy_paste: 0.0
+
+# =============================================================================
+# 数据集配置示例
+# =============================================================================
+
+dataset_config_examples:
+  
+  # COCO格式数据集
+  coco_dataset:
+    path: ./data/coco
+    train: train2017
+    val: val2017
+    test: test2017
+    nc: 80
+    names:
+      0: person
+      1: bicycle
+      2: car
+      3: motorcycle
+      4: airplane
+      5: bus
+      6: train
+      7: truck
+      8: boat
+      9: traffic light
+    download: https://github.com/ultralytics/yolov5/releases/download/v1.0/coco2017labels.zip
+    format: coco
+    annotation_format: json
+    image_formats: ['jpg', 'jpeg', 'png']
+    preprocessing:
+      resize: true
+      normalize: true
+      target_size: [640, 640]
+
+  # 自定义小数据集
+  custom_small:
+    path: ./data/custom
+    train: train/images
+    val: val/images
+    test: test/images
+    nc: 3
+    names:
+      0: cat
+      1: dog
+      2: bird
+    download: null
+    format: yolo
+    annotation_format: txt
+    image_formats: ['jpg', 'png']
+    preprocessing:
+      resize: true
+      normalize: true
+      target_size: [640, 640]
+
+  # 单类别数据集
+  single_class:
+    path: ./data/single_class
+    train: images
+    val: images
+    nc: 1
+    names:
+      0: object
+    format: yolo
+    annotation_format: txt
+    image_formats: ['jpg', 'jpeg', 'png', 'bmp']
+    preprocessing:
+      resize: true
+      normalize: true
+      target_size: [416, 416]
+
+# =============================================================================
+# 推理配置示例
+# =============================================================================
+
+inference_config_examples:
+  
+  # 高精度推理
+  high_accuracy:
+    model_path: models/best.pt
+    confidence_threshold: 0.5
+    iou_threshold: 0.5
+    max_detections: 1000
+    device: auto
+    half_precision: false
+    input_size: [1280, 1280]
+    batch_size: 1
+    save_results: true
+    output_format: json
+    visualization:
+      show_labels: true
+      show_confidence: true
+      line_thickness: 3
+      font_size: 14
+
+  # 快速推理
+  fast_inference:
+    model_path: models/yolov8n.pt
+    confidence_threshold: 0.25
+    iou_threshold: 0.45
+    max_detections: 300
+    device: auto
+    half_precision: true
+    input_size: [640, 640]
+    batch_size: 4
+    save_results: false
+    output_format: json
+    visualization:
+      show_labels: true
+      show_confidence: false
+      line_thickness: 2
+      font_size: 12
+
+  # 实时推理
+  realtime:
+    model_path: models/yolov8n.pt
+    confidence_threshold: 0.3
+    iou_threshold: 0.4
+    max_detections: 100
+    device: 0
+    half_precision: true
+    input_size: [416, 416]
+    batch_size: 1
+    save_results: false
+    output_format: json
+    visualization:
+      show_labels: true
+      show_confidence: true
+      line_thickness: 2
+      font_size: 10
+
+# =============================================================================
+# 服务器配置示例
+# =============================================================================
+
+server_config_examples:
+  
+  # 开发环境
+  development:
+    host: 127.0.0.1
+    port: 8000
+    debug: true
+    workers: 1
+    max_request_size: 16MB
+    timeout: 60
+    cors:
+      enabled: true
+      origins: ['http://localhost:3000', 'http://127.0.0.1:3000']
+      methods: ['GET', 'POST', 'OPTIONS']
+      headers: ['*']
+    rate_limiting:
+      enabled: false
+    logging:
+      level: DEBUG
+      format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+      file: logs/server_dev.log
+      max_size: 10MB
+      backup_count: 3
+
+  # 生产环境
+  production:
+    host: 0.0.0.0
+    port: 80
+    debug: false
+    workers: 4
+    max_request_size: 32MB
+    timeout: 30
+    cors:
+      enabled: true
+      origins: ['https://yourdomain.com']
+      methods: ['GET', 'POST']
+      headers: ['Content-Type', 'Authorization']
+    rate_limiting:
+      enabled: true
+      requests_per_minute: 100
+      burst_size: 20
+    logging:
+      level: INFO
+      format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+      file: logs/server_prod.log
+      max_size: 50MB
+      backup_count: 10
+
+  # 高性能环境
+  high_performance:
+    host: 0.0.0.0
+    port: 8080
+    debug: false
+    workers: 8
+    max_request_size: 64MB
+    timeout: 15
+    cors:
+      enabled: true
+      origins: ['*']
+      methods: ['GET', 'POST']
+      headers: ['*']
+    rate_limiting:
+      enabled: true
+      requests_per_minute: 1000
+      burst_size: 100
+    logging:
+      level: WARNING
+      format: '%(asctime)s - %(levelname)s - %(message)s'
+      file: logs/server_perf.log
+      max_size: 100MB
+      backup_count: 5
+
+# =============================================================================
+# 使用说明
+# =============================================================================
+
+usage_examples:
+  create_config: |
+    # 创建基于示例的配置文件
+    python main.py config create model_config --values '{"model": {"name": "yolov8s", "num_classes": 10}}'
+    
+  use_example_config: |
+    # 复制示例配置并修改
+    cp examples/example_configs.yaml my_config.yaml
+    # 然后编辑 my_config.yaml 中的相应部分
+    
+  validate_config: |
+    # 验证配置文件
+    python main.py config validate my_config.yaml --type model_config

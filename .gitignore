@@ -1,0 +1,203 @@
+# ================================
+# Python 相关文件
+# ================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ================================
+# 虚拟环境
+# ================================
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# ================================
+# IDE 和编辑器
+# ================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.spyderproject
+.spyproject
+.ropeproject
+
+# ================================
+# 操作系统文件
+# ================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ================================
+# 日志文件 (重要!)
+# ================================
+*.log
+logs/
+log/
+*.log.*
+
+# ================================
+# 数据集和大文件 (重要!)
+# ================================
+# BTD项目数据集图片
+BTD/yoloserver/data/*/images/
+BTD/yoloserver/data/*/images/*
+BTD/yoloserver/data/raw/images/
+BTD/yoloserver/data/train/images/
+BTD/yoloserver/data/val/images/
+BTD/yoloserver/data/test/images/
+BTD/yoloserver/data/processed/images/
+
+# BTD项目标注文件
+BTD/yoloserver/data/*/labels/
+BTD/yoloserver/data/*/labels/*
+BTD/yoloserver/data/raw/labels/
+BTD/yoloserver/data/train/labels/
+BTD/yoloserver/data/val/labels/
+BTD/yoloserver/data/test/labels/
+BTD/yoloserver/data/processed/labels/
+
+# 原始数据和转换数据
+BTD/yoloserver/data/raw/coco_converted/
+BTD/yoloserver/data/raw/original_annotations/
+BTD/yoloserver/data/raw/yolo_staged_labels/
+BTD/yoloserver/data/processed/
+
+# 缓存文件
+BTD/yoloserver/data/*/*.cache
+*.cache
+
+# 兼容旧路径格式
+yoloserver/runs/
+yoloserver/data/raw/images/*
+yoloserver/data/train/images/*
+yoloserver/data/val/images/*
+yoloserver/data/test/images/*
+yoloserver/models/checkpoints/*
+yoloserver/models/pretrained/*
+
+# ================================
+# 模型文件 (重要!)
+# ================================
+# 预训练模型
+BTD/yoloserver/models/pretrained/
+BTD/yoloserver/models/pretrained/*
+*.pt
+*.pth
+*.onnx
+*.engine
+*.weights
+*.h5
+
+# 训练检查点
+BTD/yoloserver/models/checkpoints/
+BTD/yoloserver/models/checkpoints/*
+
+# 根目录模型文件
+yolo*.pt
+best.pt
+last.pt
+
+# ================================
+# 训练结果和运行文件 (重要!)
+# ================================
+# YOLO训练结果
+BTD/yoloserver/runs/
+BTD/yoloserver/runs/*
+runs/
+runs/*
+
+# TensorBoard日志
+tensorboard_logs/
+tb_logs/
+
+# ================================
+# Web前端相关
+# ================================
+# Node.js
+BTD/BTDWeb/node_modules/
+BTD/BTDWeb/dist/
+BTD/BTDWeb/.env.local
+BTD/BTDWeb/.env.production
+BTD/BTDWeb/npm-debug.log*
+BTD/BTDWeb/yarn-debug.log*
+BTD/BTDWeb/yarn-error.log*
+
+# 前端构建产物
+BTD/BTDUi/build/
+BTD/BTDUi/dist/
+BTD/BTDUi/node_modules/
+
+# 兼容旧路径格式
+BTDWeb/node_modules/
+BTDWeb/dist/
+BTDWeb/.env.local
+BTDWeb/.env.production
+BTDUi/build/
+BTDUi/dist/
+
+# ================================
+# 配置和临时文件
+# ================================
+# 临时配置文件
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# 合并冲突文件
+*.orig
+merge_config.txt
+
+# 测试输出
+test_output/
+temp/
+tmp/
+
+# ================================
+# 保留重要文件 (例外规则)
+# ================================
+# 保留README文件
+!BTD/yoloserver/data/**/README.md
+!BTD/yoloserver/models/**/README.md
+!BTD/yoloserver/runs/**/README.md
+!yoloserver/data/**/README.md
+!yoloserver/models/**/README.md
+
+# 保留配置文件
+!BTD/yoloserver/configs/*.yaml
+!BTD/yoloserver/configs/*.yml
+
+# 保留文档
+!*.md
+!docs/
+!BTD/docs/
